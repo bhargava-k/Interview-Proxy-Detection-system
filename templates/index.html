@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Link</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generate Unique Link</h1>
+    <form action="/" method="POST">
+        <label for="name">Enter Name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Generate Link</button>
+    </form>
+    
+    {% if unique_link %}
+        <p>Unique Link: <a href="{{ unique_link }}">{{ unique_link }}</a></p>
+    {% endif %}
+    
+    <h1>Client Data</h1>
+    <form action="/" method="GET">
+        <button type="submit">Refresh</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Token</th>
+                <th>Name</th>
+                <th>OS</th>
+                <th>Browser</th>
+                <th>IP Address</th>
+                <th>Proxy Detected</th>
+                <th>Remote Desktop Detected</th>
+                <!-- Add more headers as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% if client_data %}
+                {% for row in client_data %}
+                    <tr>
+                        <td>{{ row['Token'] }}</td>
+                        <td>{{ row['Name'] }}</td>
+                        <td>{{ row['OS'] }}</td>
+                        <td>{{ row['Browser'] }}</td>
+                        <td>{{ row['IP Address'] }}</td>
+                        <td>{{ row['Proxy Detected'] }}</td>
+                        <td>{{ row['Remote Desktop Detected'] }}</td>
+                        <!-- Add more columns as needed -->
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">No client data available</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+</html>
